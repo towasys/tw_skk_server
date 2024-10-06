@@ -1,5 +1,6 @@
 import { db_get, db_to_read_get } from "./db";
 import { decode, encode } from "./euc_jp";
+import Path from "node:path";
 
 Bun.listen({
 	hostname: "localhost",
@@ -42,7 +43,7 @@ Bun.listen({
 });
 
 export async function henkan(kana: string) {
-	const uri = "t_w-rinkaku.duckdb";
+	const uri = Path.join(__dirname, "t_w-rinkaku.duckdb");
 	console.log("get db");
 	const db = await db_get(uri);
 	if (!db) {
@@ -166,6 +167,18 @@ export async function henkan(kana: string) {
 						UNION SELECT 'ぷ' as hira, 'プ' as kata
 						UNION SELECT 'ぺ' as hira, 'ペ' as kata
 						UNION SELECT 'ぽ' as hira, 'ポ' as kata
+
+						UNION SELECT 'ぁ' as hira, 'ァ' as kata
+						UNION SELECT 'ぃ' as hira, 'ィ' as kata
+						UNION SELECT 'ぅ' as hira, 'ゥ' as kata
+						UNION SELECT 'ぇ' as hira, 'ェ' as kata
+						UNION SELECT 'ぉ' as hira, 'ォ' as kata
+
+						UNION SELECT 'っ' as hira, 'ッ' as kata
+						
+						UNION SELECT 'ゃ' as hira, 'ャ' as kata
+						UNION SELECT 'ゅ' as hira, 'ュ' as kata
+						UNION SELECT 'ょ' as hira, 'ョ' as kata
 					)
 				),
 				kata as (
